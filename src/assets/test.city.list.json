@@ -1,0 +1,32 @@
+[
+    {
+        "id": 3333229,
+        "name": "City of Edinburgh",
+        "state": "",
+        "country": "GB",
+        "coord": {
+            "lon": -3.19333,
+            "lat": 55.94973
+        }
+    },
+    {
+        "id": 2648579,
+        "name": "Glasgow",
+        "state": "",
+        "country": "GB",
+        "coord": {
+            "lon": -4.25763,
+            "lat": 55.86515
+        }
+    },
+    {
+        "id": 7535661,
+        "name": "London Borough of Harrow",
+        "state": "",
+        "country": "GB",
+        "coord": {
+            "lon": -0.33333,
+            "lat": 51.566669
+        }
+    }
+]
