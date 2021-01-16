@@ -1,11 +1,6 @@
 <template>
   <div>
     <div>
-      <button v-on:click="$emit('currentWeatherQuery-Api', 'Edinburgh', 'UK')">
-        Get data [payload: cityName: Edinburgh, countryCode:UK
-      </button>
-    </div>
-    <div>
       <input
         type="text"
         placeholder="Enter city"
