@@ -2,12 +2,12 @@
   <div id="app">
     <div>
       <city-search-bar
-        v-on:current-weather-query-api="currentWeatherData"
+        v-on:current-weatherQueryApi="currentWeatherData"
         v-on:queryApi="queryApi"
       >
       </city-search-bar>
       <selected-city-detail
-        v-bind:selectedCity="selectedCity"
+        v-bind:selectedCity="currentWeather"
       ></selected-city-detail>
     </div>
   </div>
