@@ -1,9 +1,7 @@
 <template>
   <div>
     <div>
-      <button
-        v-on:click="$emit('current-weather-query-api', 'Edinburgh', 'UK')"
-      >
+      <button v-on:click="$emit('currentWeatherQuery-Api', 'Edinburgh', 'UK')">
         Get data [payload: cityName: Edinburgh, countryCode:UK
       </button>
     </div>
@@ -12,6 +10,7 @@
         type="text"
         placeholder="Enter city"
         v-model="searchInput"
+        v-on:keyup.enter="$emit('queryApi', searchType, searchInput)"
         autocomplete="off"
       />
     </div>
@@ -24,6 +23,7 @@ export default {
   data() {
     return {
       searchInput: null,
+      searchType: 'weather',
     }
   },
 }
