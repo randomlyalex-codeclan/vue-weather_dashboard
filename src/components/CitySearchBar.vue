@@ -1,26 +1,26 @@
 <template>
-  <div>
     <div>
-      <input
-        type="text"
-        placeholder="Enter city"
-        v-model="searchInput"
-        v-on:keyup.enter="$emit('queryApi', searchType, searchInput)"
-        autocomplete="off"
-      />
+        <div>
+            <input
+                type="text"
+                placeholder="Enter city"
+                v-model="searchInput"
+                v-on:keyup.enter="$emit('queryApi', searchType, searchInput)"
+                autocomplete="off"
+            />
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'CitySearchBar',
-  data() {
-    return {
-      searchInput: null,
-      searchType: 'weather',
-    }
-  },
+    name: 'CitySearchBar',
+    data() {
+        return {
+            searchInput: null,
+            searchType: 'weather',
+        }
+    },
 }
 </script>
 

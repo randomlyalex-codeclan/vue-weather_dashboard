@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div>
-      <city-search-bar v-on:queryApi="queryApi"> </city-search-bar>
-      <city-search-bar2></city-search-bar2>
       <selected-city-detail
         v-bind:selectedCity="selectedCity"
       ></selected-city-detail>
+      <city-search-bar v-on:queryApi="queryApi"> </city-search-bar>
+      <city-search-bar2 v-on:queryApi="queryApi"></city-search-bar2>
     </div>
   </div>
 </template>
