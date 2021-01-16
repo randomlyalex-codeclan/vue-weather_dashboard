@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <div>
-      <city-search-bar></city-search-bar>
-      <selected-city-detail></selected-city-detail>
-      <button @click="currentWeatherData('Edinburgh', 'UK')">Get data</button>
+      <city-search-bar
+        v-on:current-weather-query-api="currentWeatherData"
+        v-on:queryApi="queryApi"
+      >
+      </city-search-bar>
+      <selected-city-detail
+        v-bind:selectedCity="selectedCity"
+      ></selected-city-detail>
     </div>
   </div>
 </template>
 
 <script>
-import CitySearchBar from '.components/CitySearchBar'
-import SelectedCityDetail from '.components/SelectedCityDetail'
+import CitySearchBar from './components/CitySearchBar'
+import SelectedCityDetail from './components/SelectedCityDetail'
 
 export default {
   name: 'App',
@@ -21,6 +26,36 @@ export default {
   data() {
     return {
       currentWeather: null,
+      selectedCity: {
+        coord: { lon: -3.1965, lat: 55.9521 },
+        weather: [
+          { id: 801, main: 'Clouds', description: 'few clouds', icon: '02d' },
+        ],
+        base: 'stations',
+        main: {
+          temp: 280.78,
+          feels_like: 275.1,
+          temp_min: 279.82,
+          temp_max: 281.48,
+          pressure: 1006,
+          humidity: 87,
+        },
+        visibility: 10000,
+        wind: { speed: 6.69, deg: 250 },
+        clouds: { all: 20 },
+        dt: 1610806774,
+        sys: {
+          type: 1,
+          id: 1442,
+          country: 'GB',
+          sunrise: 1610785941,
+          sunset: 1610813543,
+        },
+        timezone: 0,
+        id: 2650225,
+        name: 'Edinburgh',
+        cod: 200,
+      },
     }
   },
   mounted: function() {},
