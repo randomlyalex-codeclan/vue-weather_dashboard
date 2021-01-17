@@ -5,10 +5,15 @@
                 class="search-container"
                 v-on:queryApi="queryApi"
             ></city-search-bar2>
+            <city-search-bar v-on:queryApi="queryApi"> </city-search-bar>
         </div>
         <div class="bottom-half">
             <div class="left-container">
-                <selected-city-detail v-bind:selectedCity="selectedCity">
+                <selected-city-detail
+                    v-bind:selectedCity="selectedCity"
+                    v-bind:forecast="forecast"
+                    v-on:queryApi="queryApi"
+                >
                 </selected-city-detail>
             </div>
             <div class="right-container">
@@ -17,7 +22,7 @@
                         <input
                             type="radio"
                             id="map-radio-button"
-                            value="map"
+                            value="weather"
                             v-model="toggleViewSelect"
                         />
                         <label for="map-radio-button">Map</label>
@@ -39,36 +44,53 @@
                         <label for="historical-radio-button">Historical</label>
                     </form>
                 </div>
-                <div v-if="toggleViewSelect === 'map'">
+                <div v-if="toggleViewSelect === 'weather'">
                     <selected-city-map
-                        class="map"
+                        class="weather"
                         v-bind:selectedCity="selectedCity"
                     ></selected-city-map>
                 </div>
+                <div v-if="toggleViewSelect === 'forecast'">
+                    <selected-city-forecast
+                        class="forecast"
+                        v-bind:forecast="forecast"
+                    ></selected-city-forecast>
+                </div>
+                <div v-if="toggleViewSelect === 'historical'">
+                    <selected-city-historical
+                        class="historical"
+                        v-bind:historical="historical"
+                    ></selected-city-historical>
+                </div>
             </div>
-            <!-- <city-search-bar v-on:queryApi="queryApi"> </city-search-bar> -->
         </div>
     </div>
 </template>
 
 <script>
-// import CitySearchBar from './components/CitySearchBar'
+import CitySearchBar from './components/CitySearchBar'
 import CitySearchBar2 from './components/CitySearchBar2.vue'
 import SelectedCityDetail from './components/SelectedCityDetail'
 import SelectedCityMap from './components/SelectedCityMap.vue'
+import SelectedCityForecast from './components/SelectedCityForecast.vue'
+import SelectedCityHistorical from './components/SelectedCityHistorical.vue'
 
 export default {
     name: 'App',
     components: {
-        // 'city-search-bar': CitySearchBar,
+        'city-search-bar': CitySearchBar,
         'selected-city-detail': SelectedCityDetail,
         'city-search-bar2': CitySearchBar2,
         'selected-city-map': SelectedCityMap,
+        'selected-city-forecast': SelectedCityForecast,
+        'selected-city-historical': SelectedCityHistorical,
     },
     data() {
         return {
             selectedCity: null,
-            toggleViewSelect: 'map',
+            forecast: null,
+            historical: null,
+            toggleViewSelect: 'weather',
         }
     },
     mounted: function() {
@@ -80,21 +102,28 @@ export default {
     methods: {
         //this query function takes the place of all of the below, so long as i can figure out how to make it safe
         queryApi: function(call, query) {
-            fetch(
-                // more details https://openweathermap.org/api
-                // work out how to validate  call = [
-                //   'weather',
-                //   'hourly',
-                //   'daily',
-                //   'history'
-                // ].indexOf(value) !== -1
-                // }
-                // consider how to keep query safe from injection
-                //
-                `https://api.openweathermap.org/data/2.5/${call}?q=${query}&appid=${process.env.VUE_APP_OW_API_KEY}`,
-            )
-                .then(response => response.json())
-                .then(data => (this.selectedCity = data))
+            const choices = ['weather', 'forecast', 'historical']
+            this.toggleViewSelect = call
+            if (choices.indexOf(call) === -1) {
+                return null
+            } else {
+                fetch(
+                    `https://api.openweathermap.org/data/2.5/${call}?q=${query}&appid=${process.env.VUE_APP_OW_API_KEY}`,
+                )
+                    .then(response => response.json())
+                    .then(data => {
+                        if (call === 'weather') {
+                            this.selectedCity = data
+                        } else if (call === 'forecast') {
+                            this.forecast = data
+                        } else if (call === 'historical') {
+                            this.historical = data
+                        }
+                    })
+            }
+        },
+        queryOneCallApi: function() {
+            // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
         },
 
         //     currentWeatherData: function(cityName, countryCode) {
@@ -177,12 +206,12 @@ export default {
 
 .left-container {
     z-index: 1;
-    width: 50vw;
+    width: 35vw;
 }
 
 .right-container {
     z-index: 1;
-    width: 50vw;
+    width: 65vw;
 }
 
 /* apps within */
