@@ -1,12 +1,6 @@
 <template>
-    <div style="height: 500px; width: 100%">
-        <div id="map">
-            <button @click="showMap = !showMap">
-                Toggle map
-            </button>
-        </div>
+    <div class="map">
         <l-map
-            v-if="showMap"
             :zoom="zoom"
             :center="center"
             :options="mapOptions"
@@ -94,7 +88,6 @@ export default {
             mapOptions: {
                 zoomSnap: 0.5,
             },
-            showMap: true,
         }
     },
     methods: {
@@ -116,7 +109,7 @@ export default {
 
 <style type="scss" scoped>
 .map {
-    height: 100vh;
-    width: 70vh;
+    height: 75vh;
+    width: 75vh;
 }
 </style>
