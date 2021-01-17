@@ -4,6 +4,9 @@
             <city-search-bar2 v-on:queryApi="queryApi"></city-search-bar2>
             <selected-city-detail v-bind:selectedCity="selectedCity">
             </selected-city-detail>
+            <selected-city-map
+                v-bind:selectedCity="selectedCity"
+            ></selected-city-map>
             <!-- <city-search-bar v-on:queryApi="queryApi"> </city-search-bar> -->
         </div>
     </div>
@@ -13,6 +16,7 @@
 // import CitySearchBar from './components/CitySearchBar'
 import CitySearchBar2 from './components/CitySearchBar2.vue'
 import SelectedCityDetail from './components/SelectedCityDetail'
+import SelectedCityMap from './components/SelectedCityMap.vue'
 
 export default {
     name: 'App',
@@ -20,6 +24,7 @@ export default {
         // 'city-search-bar': CitySearchBar,
         'selected-city-detail': SelectedCityDetail,
         'city-search-bar2': CitySearchBar2,
+        'selected-city-map': SelectedCityMap,
     },
     data() {
         return {
