@@ -7,6 +7,11 @@
             v-on:keyup.enter="submitSearch"
             v-on:keyup.up="hoverCity(-1)"
             v-on:keyup.down="hoverCity(+1)"
+            v-on:keyup.esc="
+                {
+                    inputString = null
+                }
+            "
             autocomplete="off"
         />
         <!-- {{ hoverIndex }} -- {{ this.filteredCities[hoverIndex].name }} -->
