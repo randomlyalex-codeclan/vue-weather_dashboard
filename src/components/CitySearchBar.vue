@@ -3,7 +3,7 @@
         <div>
             <input
                 type="text"
-                placeholder="Enter city"
+                placeholder="Guess a city..."
                 v-model="searchInput"
                 v-on:keyup.enter="$emit('queryApi', searchType, searchInput)"
                 autocomplete="off"
