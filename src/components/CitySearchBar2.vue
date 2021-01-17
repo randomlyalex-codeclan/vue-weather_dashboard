@@ -2,16 +2,17 @@
     <div>
         <input
             type="text"
+            placeholder="Start typing city..."
             v-model="inputString"
             v-on:keyup.enter="submitSearch"
             v-on:keyup.up="hoverCity(-1)"
             v-on:keyup.down="hoverCity(+1)"
             autocomplete="off"
         />
-        <!-- {{ hoverIndex }} -- {{ this.filterdCities[hoverIndex].name }} -->
-        <ul v-if="inputString">
+        <!-- {{ hoverIndex }} -- {{ this.filteredCities[hoverIndex].name }} -->
+        <ul v-if="filteredCities !== null && inputString">
             <li
-                v-for="(city, index) in filterdCities"
+                v-for="(city, index) in filteredCities"
                 v-bind:key="index"
                 v-bind:class="{ highlighted: index === hoverIndex }"
             >
@@ -39,7 +40,7 @@ export default {
                 this.hoverIndex = 0
             } else {
                 this.hoverIndex =
-                    (this.hoverIndex + num) % this.filterdCities.length
+                    (this.hoverIndex + num) % this.filteredCities.length
             }
         },
         submitSearch: function() {
@@ -48,16 +49,27 @@ export default {
         },
     },
     computed: {
-        filterdCities: function() {
+        filteredCities: function() {
             var re = new RegExp(this.inputString, 'gi')
             this.hoverCity(0)
             //   console.log(this.allCities[0].name.match(re) != null)
             //   console.log(this.allCities[1].name.match(re) != null)
-
-            return this.allCities.filter(city => city.name.match(re) != null)
+            if (this.inputString === null) return null
+            else {
+                return this.allCities.filter(
+                    city => city.name.match(re) != null,
+                )
+            }
         },
         searchInput: function() {
-            return this.filterdCities[this.hoverIndex].name
+            if (
+                !Array.isArray(this.filteredCities) ||
+                !this.filteredCities.length
+            ) {
+                return this.inputString
+            } else {
+                return this.filteredCities[this.hoverIndex].name
+            }
         },
     },
 }
