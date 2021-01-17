@@ -1,20 +1,57 @@
 <template>
     <div id="app">
-        <div>
-            <city-search-bar2 v-on:queryApi="queryApi"></city-search-bar2>
-            <selected-city-detail v-bind:selectedCity="selectedCity">
-            </selected-city-detail>
-            <selected-city-map
-                v-bind:selectedCity="selectedCity"
-            ></selected-city-map>
-            <!-- <basic-single-map></basic-single-map> -->
+        <div class="top-half">
+            <city-search-bar2
+                class="search-container"
+                v-on:queryApi="queryApi"
+            ></city-search-bar2>
+        </div>
+        <div class="bottom-half">
+            <div class="left-container">
+                <selected-city-detail v-bind:selectedCity="selectedCity">
+                </selected-city-detail>
+            </div>
+            <div class="right-container">
+                <div>
+                    <form id="right-container-toggle-form">
+                        <input
+                            type="radio"
+                            id="map-radio-button"
+                            value="map"
+                            v-model="toggleViewSelect"
+                        />
+                        <label for="map-radio-button">Map</label>
+
+                        <input
+                            type="radio"
+                            id="forecast-radio-button"
+                            value="forecast"
+                            v-model="toggleViewSelect"
+                        />
+                        <label for="forecast-radio-button">Forecast</label>
+
+                        <input
+                            type="radio"
+                            id="historical-radio-button"
+                            value="historical"
+                            v-model="toggleViewSelect"
+                        />
+                        <label for="historical-radio-button">Historical</label>
+                    </form>
+                </div>
+                <div v-if="toggleViewSelect === 'map'">
+                    <selected-city-map
+                        class="map"
+                        v-bind:selectedCity="selectedCity"
+                    ></selected-city-map>
+                </div>
+            </div>
             <!-- <city-search-bar v-on:queryApi="queryApi"> </city-search-bar> -->
         </div>
     </div>
 </template>
 
 <script>
-// import BasicSingleMap from './components/BasicSingleMap.vue'
 // import CitySearchBar from './components/CitySearchBar'
 import CitySearchBar2 from './components/CitySearchBar2.vue'
 import SelectedCityDetail from './components/SelectedCityDetail'
@@ -27,11 +64,11 @@ export default {
         'selected-city-detail': SelectedCityDetail,
         'city-search-bar2': CitySearchBar2,
         'selected-city-map': SelectedCityMap,
-        // BasicSingleMap,
     },
     data() {
         return {
             selectedCity: null,
+            toggleViewSelect: 'map',
         }
     },
     mounted: function() {
@@ -95,12 +132,63 @@ export default {
 </script>
 
 <style>
+/* main viewport */
 #app {
+    z-index: 1;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 30px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(223, 229, 235);
+}
+
+.top-half {
+    z-index: 1;
+    width: 100vw;
+    background-color: green;
+}
+
+.search-container {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    margin: 0;
+    border: none;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+
+    background-color: rgb(59, 152, 233);
+}
+
+.bottom-half {
+    z-index: 1;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: red;
+}
+
+.left-container {
+    z-index: 1;
+    width: 50vw;
+}
+
+.right-container {
+    z-index: 1;
+    width: 50vw;
+}
+
+/* apps within */
+.map {
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
 }
 </style>
