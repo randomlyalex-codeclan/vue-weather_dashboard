@@ -1,5 +1,8 @@
 <template>
-    <div v-if="selectedCity.cod != '404'">
+    <div v-if="selectedCity === null">
+        <!-- blank start page -->
+    </div>
+    <div v-else-if="selectedCity.cod != '404'">
         <h1>City: {{ selectedCity.name }}, {{ selectedCity.sys.country }}</h1>
         <h3>
             lat: {{ selectedCity.coord.lat }} long: {{ selectedCity.coord.lon }}
