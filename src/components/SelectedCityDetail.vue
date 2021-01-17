@@ -3,14 +3,17 @@
         <!-- blank start page -->
     </div>
     <div v-else-if="selectedCity.cod != '404'">
-        <h1>City: {{ selectedCity.name }}, {{ selectedCity.sys.country }}</h1>
-        <h3>
+        <h1>{{ selectedCity.name }}, {{ selectedCity.sys.country }}</h1>
+        <p>
             lat: {{ selectedCity.coord.lat }} long: {{ selectedCity.coord.lon }}
-        </h3>
-        <h3>Current Weather: {{ selectedCity.weather[0].description }}</h3>
-        <h3>
+        </p>
+        <p>Current Weather: {{ selectedCity.weather[0].description }}</p>
+        <p>
             Current Temp: {{ roundToDp(selectedCity.main.temp - 273.15, 0) }}°
-        </h3>
+        </p>
+        <button>4 hours</button>
+        <button>Daily</button>
+        <button>History</button>
     </div>
     <div v-else>
         <h1>No city found</h1>
