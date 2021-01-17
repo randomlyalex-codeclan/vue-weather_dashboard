@@ -1,78 +1,122 @@
 <template>
-    <div id="container">
-        <div id="mapContainer">
-            <l-map
-                @update:zoom="zoomUpdate"
-                @update:center="centerUpdate"
-                :zoom="zoom"
-                :center="center"
-            >
-                <l-tile-layer
-                    :url="url"
-                    :attribution="attribution"
-                ></l-tile-layer>
-            </l-map>
+    <div style="height: 500px; width: 100%">
+        <div id="map">
+            <button @click="showMap = !showMap">
+                Toggle map
+            </button>
         </div>
+        <l-map
+            v-if="showMap"
+            :zoom="zoom"
+            :center="center"
+            :options="mapOptions"
+            style="height: 80%"
+            @update:center="centerUpdate"
+            @update:zoom="zoomUpdate"
+        >
+            <l-tile-layer :url="transport" :attribution="attribution" />
+            <l-marker :lat-lng="withPopup">
+                <l-popup>
+                    <div @click="innerClick">
+                        I am a popup
+                        <p v-show="showParagraph">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Quisque sed pretium nisl, ut sagittis sapien.
+                            Sed vel sollicitudin nisi. Donec finibus semper
+                            metus id malesuada.
+                        </p>
+                    </div>
+                </l-popup>
+            </l-marker>
+            <l-marker :lat-lng="withTooltip">
+                <l-tooltip :options="{ permanent: true, interactive: true }">
+                    <div @click="innerClick">
+                        I am a tooltip
+                        <p v-show="showParagraph">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Quisque sed pretium nisl, ut sagittis sapien.
+                            Sed vel sollicitudin nisi. Donec finibus semper
+                            metus id malesuada.
+                        </p>
+                    </div>
+                </l-tooltip>
+            </l-marker>
+        </l-map>
     </div>
 </template>
 
 <script>
-import L from 'leaflet'
-import { LMap, LTileLayer } from 'vue2-leaflet' //LMarker
+import { latLng } from 'leaflet'
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from 'vue2-leaflet'
+
 export default {
     name: 'SelectedCityMap',
-    data() {
-        return {
-            zoom: 13,
-            center: [37, 7749, -122, 4194],
-            url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-            attribution:
-                '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-            marker: L.latLng(47.41322, -1.219482),
-            currentCenter: L.latLng(47.41322, -1.219482),
-            currentZoom: 7,
-            iconSize: [15, 15],
-        }
-    },
     components: {
         LMap,
         LTileLayer,
-        // LMarker,
-    },
-    methods: {
-        // setupLeafletMap: function() {
-        //     const mapDiv = L.map('mapContainer').setView(this.center, 13)
-        //     L.tileLayer(
-        //         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`,
-        //         {
-        //             attribution:
-        //                 'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-        //             maxZoom: 18,
-        //             id: 'mapbox/streets-v11',
-        //             accessToken: process.env.VUE_APP_MAPBOX_API_KEY,
-        //         },
-        //     ).addTo(mapDiv)
-        // },
-        latLng: function(lat, lng) {
-            return L.latLng(lat, lng)
-        },
-        centerUpdate: function(center) {
-            this.currentCenter = center
-        },
-        zoomUpdate: function(zoom) {
-            this.currentZoom = zoom
-        },
-    },
-    mounted() {
-        // this.setupLeafletMap()
+        LMarker,
+        LPopup,
+        LTooltip,
     },
     props: ['selectedCity'],
+    computed: {
+        center() {
+            if (this.selectedCity) {
+                return latLng(
+                    this.selectedCity.coord.lat,
+                    this.selectedCity.coord.lon,
+                )
+            } else return latLng(55.9521, -3.1965)
+        },
+    },
+    data() {
+        return {
+            zoom: 13,
+            osmurl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            //make these one query with buttons later:
+            transport: `https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            OpenCycleMap: `https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            Transport: `https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            Landscape: `https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            Outdoors: `https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            TransportDark: `https://tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            SpinalMap: `https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            Pioneer: `https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            MobileAtlas: `https://tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            Neighbourhood: `https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=${process.env.VUE_APP_THUNDERFOREST_API_KEY}`,
+            attribution:
+                '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+            withPopup: latLng(47.41322, -1.219482),
+            withTooltip: latLng(47.41422, -1.250482),
+            currentZoom: 11.5,
+            currentCenter: latLng(47.41322, -1.219482),
+            showParagraph: false,
+            mapOptions: {
+                zoomSnap: 0.5,
+            },
+            showMap: true,
+        }
+    },
+    methods: {
+        zoomUpdate(zoom) {
+            this.currentZoom = zoom
+        },
+        centerUpdate(center) {
+            this.currentCenter = center
+        },
+        showLongText() {
+            this.showParagraph = !this.showParagraph
+        },
+        innerClick() {
+            alert('Click!')
+        },
+    },
 }
 </script>
 
-<style scoped>
-#mapContainer {
-    height: 50vh;
-    width: 50vh;
+<style type="scss" scoped>
+.map {
+    height: 100vh;
+    width: 70vh;
 }
 </style>

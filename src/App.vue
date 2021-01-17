@@ -7,12 +7,14 @@
             <selected-city-map
                 v-bind:selectedCity="selectedCity"
             ></selected-city-map>
+            <!-- <basic-single-map></basic-single-map> -->
             <!-- <city-search-bar v-on:queryApi="queryApi"> </city-search-bar> -->
         </div>
     </div>
 </template>
 
 <script>
+// import BasicSingleMap from './components/BasicSingleMap.vue'
 // import CitySearchBar from './components/CitySearchBar'
 import CitySearchBar2 from './components/CitySearchBar2.vue'
 import SelectedCityDetail from './components/SelectedCityDetail'
@@ -25,6 +27,7 @@ export default {
         'selected-city-detail': SelectedCityDetail,
         'city-search-bar2': CitySearchBar2,
         'selected-city-map': SelectedCityMap,
+        // BasicSingleMap,
     },
     data() {
         return {
