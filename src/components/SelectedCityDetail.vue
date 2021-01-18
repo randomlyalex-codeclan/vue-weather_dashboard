@@ -2,17 +2,23 @@
     <div v-if="selectedCity === null">
         <!-- blank start page -->
     </div>
-    <div v-else-if="selectedCity.cod != '404'">
+    <div class="city-day-result" v-else-if="selectedCity.cod != '404'">
         <h1>{{ selectedCity.name }}, {{ selectedCity.sys.country }}</h1>
         <p>
             {{ getNiceDate(selectedCity.dt) }}
         </p>
-        <p>Current Weather: {{ selectedCity.weather[0].description }}</p>
+        <p>Currently: {{ selectedCity.weather[0].description }}</p>
         <p>
-            Current Temp: {{ roundToDp(selectedCity.main.temp - 273.15, 0) }}°
+            Current Temp: {{ roundToDp(selectedCity.main.temp - 273.15, 1) }}°
         </p>
-        <p>Feels Like: {{ roundToDp(selectedCity.main.temp - 273.15, 0) }}°</p>
-        <p>Min / Max: {{ roundToDp(selectedCity.main.temp - 273.15, 0) }}°</p>
+        <p>
+            Feels Like:
+            {{ roundToDp(selectedCity.main.feels_like - 273.15, 1) }}°
+        </p>
+        <p>
+            Min / Max: {{ roundToDp(selectedCity.main.temp_min - 273.15, 0) }}°
+            / {{ roundToDp(selectedCity.main.temp_max - 273.15, 0) }}°
+        </p>
         <button
             v-on:click="
                 submitSearch(
@@ -49,4 +55,9 @@ export default {
 }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.city-day-result {
+    text-align: right;
+    padding-right: 5vw;
+}
+</style>
