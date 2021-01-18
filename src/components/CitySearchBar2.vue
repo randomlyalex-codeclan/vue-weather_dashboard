@@ -16,7 +16,6 @@
             "
             autocomplete="off"
         />
-        <!-- {{ hoverIndex }} -- {{ this.filteredCities[hoverIndex].name }} -->
         <ul v-if="filteredCities !== null && inputString">
             <li
                 v-for="(city, index) in filteredCities"
@@ -82,8 +81,6 @@ export default {
         filteredCities: function() {
             var re = new RegExp(this.inputString, 'gi')
             this.hoverCity(0)
-            //   console.log(this.allCities[0].name.match(re) != null)
-            //   console.log(this.allCities[1].name.match(re) != null)
             if (this.inputString.length >= 2) {
                 return this.allCitiesGeoDb.filter(
                     city => city.city.match(re) != null,

@@ -125,37 +125,6 @@ export default {
         queryOneCallApi: function() {
             // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
         },
-
-        //     currentWeatherData: function(cityName, countryCode) {
-        //       fetch(
-        //         // more details https://openweathermap.org/current
-        //         `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&appid=${process.env.VUE_APP_OW_API_KEY}`,
-        //       )
-        //         .then(response => response.json())
-        //         .then(data => (this.currentWeather = data))
-        //     },
-
-        //     hourlyForecast4Days: function(cityName, countryCode) {
-        //       fetch(
-        //         //more details https://openweathermap.org/api/hourly-forecast
-        //         `pro.openweathermap.org/data/2.5/forecast/hourly?q=${cityName},${countryCode}&appid=${process.env.VUE_APP_OW_API_KEY}`,
-        //       )
-        //     },
-
-        //     dailyForecast16Days: function(cityName, countryCode, count) {
-        //       fetch(
-        //         //more details https://openweathermap.org/forecast16
-        //         `api.openweathermap.org/data/2.5/forecast/daily?q=${cityName},${countryCode}&cnt=${count}&appid=${process.env.VUE_APP_OW_API_KEY}`,
-        //       )
-        //     },
-
-        //     historicalWeatherAPI: function(cityName, countryCode, unixStart, unixEnd) {
-        //       fetch(
-        //         //more details https://openweathermap.org/history
-        //         `http://history.openweathermap.org/data/2.5/history/city?q=${cityName},${countryCode}&type=hour&start=${unixStart}&end=${unixEnd}&appid=${process.env.VUE_APP_OW_API_KEY}
-        // `,
-        //       )
-        //     },
     },
 }
 </script>
