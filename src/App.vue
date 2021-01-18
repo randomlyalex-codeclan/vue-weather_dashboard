@@ -178,7 +178,7 @@ export default {
 .top-half {
     z-index: 1;
     width: 100vw;
-    background-color: green;
+    background-color: rgb(139, 201, 255);
 }
 
 .search-container {
@@ -192,7 +192,7 @@ export default {
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
 
-    background-color: rgb(59, 152, 233);
+    background-color: rgb(59, 152, 233, 0.85);
 }
 
 .bottom-half {
@@ -201,7 +201,7 @@ export default {
     width: 100vw;
     height: 100vh;
 
-    background-color: red;
+    background-color: rgb(139, 201, 255);
 }
 
 .left-container {
