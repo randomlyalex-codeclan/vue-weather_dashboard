@@ -16,7 +16,7 @@
             "
             autocomplete="off"
         />
-        <ul v-if="filteredCities !== null && inputString">
+        <ul v-if="filteredCities !== null && inputString.length > 0">
             <li
                 v-for="(city, index) in filteredCities"
                 v-bind:key="index"
@@ -50,8 +50,8 @@ export default {
         },
         submitSearch: function() {
             this.$emit('queryApi', this.searchType, this.searchInput)
-            this.inputString = null
-            this.allCitiesGeoDb = null
+            this.inputString = ''
+            this.allCitiesGeoDb = []
         },
         queryGeoDb: function(namePrefix) {
             fetch(
