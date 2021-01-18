@@ -71,7 +71,7 @@ export default {
                 })
         },
         checkKeyCount() {
-            if ([2, 3, 4, 6].indexOf(this.inputString.length) > -1) {
+            if ([2, 4, 6].indexOf(this.inputString.length) > -1) {
                 this.queryGeoDb(this.inputString)
                 console.log('this would be an api call')
             }
@@ -110,7 +110,21 @@ export default {
 
 <style lang="css" scoped>
 .highlighted {
-    background: tomato;
+    background: rgb(255, 99, 71, 0.8);
+    font-weight: bold;
     color: white;
+}
+li {
+    list-style: none;
+    font-weight: bold;
+    width: 30vw;
+    margin-left: 7vh;
+    margin-right: 13vh;
+    border-radius: 5px;
+}
+input {
+    width: 40vw;
+    text-align: center;
+    background-color: rgb(59, 152, 233, 0.7);
 }
 </style>
