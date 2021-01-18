@@ -113,6 +113,8 @@ export default {
                     .then(response => response.json())
                     .then(data => {
                         if (call === 'weather') {
+                            this.forecast = null
+                            this.historical = null
                             this.selectedCity = data
                         } else if (call === 'forecast') {
                             this.forecast = data
