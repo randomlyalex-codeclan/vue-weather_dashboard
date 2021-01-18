@@ -11,8 +11,13 @@
                 <th>Humidity</th>
             </tr>
             <tr></tr>
-            <tr v-for="(hourly, index) in forecast.list" v-bind:key="index">
+            <tr
+                v-for="(hourly, index) in forecast.list"
+                v-bind:key="index"
+                v-bind:class="oddEven(index)"
+            >
                 <td>
+                    {{ convertDateTime(hourly.dt, 0, 1) }}
                     {{ convertDateTimeISO(hourly.dt, 8, 10) }}
                     {{ convertDateTimeISO(hourly.dt, 11, 16) }}
                 </td>
@@ -52,6 +57,11 @@ export default {
         roundToDp: function(num, dp) {
             return Math.round((num + Number.EPSILON) * 10 ** dp) / 10 ** dp
         },
+        oddEven: function(index) {
+            if (index % 2 === 0) {
+                return 'even'
+            } else return 'odd'
+        },
         // parseDailyData: function() {
         //     parsedDailyData = {
         //         mon: null,
@@ -70,4 +80,16 @@ export default {
 }
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+table {
+    border: 1px solid black;
+}
+th {
+}
+tr {
+}
+.odd {
+}
+.even {
+}
+</style>
